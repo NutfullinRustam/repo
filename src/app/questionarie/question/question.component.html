@@ -1,0 +1,18 @@
+<div [formGroup]="form">
+
+  <div [ngSwitch]="question.controlType">
+    <mat-form-field appearance="standard">
+      <mat-label [attr.for]="question.key">{{question.label}}</mat-label>
+      <input  *ngSwitchCase="'textbox'" [formControlName]="question.key"
+             [id]="question.key" [type]="question.type" matInput>
+
+      <mat-select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+  <button *ngIf="question.order !== 1" mat-button matStepperPrevious type="button">Back</button>
+  <button *ngIf="!isLast" mat-button matStepperNext type="button" [disabled]="!isValid">Next</button>
+  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+</div>

@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import {QuestionsService} from './store/service';
+import {QuestionsQuery} from './store/query';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'questionarie';
+  constructor(
+    private questionsService: QuestionsService,
+    public questionsQuery: QuestionsQuery,
+  ) {
+    this.questionsService.loadQuestions().subscribe();
+  }
 }
